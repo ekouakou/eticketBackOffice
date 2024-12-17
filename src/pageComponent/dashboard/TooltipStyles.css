@@ -1,0 +1,31 @@
+/* TooltipStyles.css */
+.custom-tooltip {
+    background-color: #fff; /* Couleur de fond personnalisée */
+    color: #333;            /* Couleur de texte personnalisée */
+    padding: 8px;           /* Espacement intérieur */
+    border-radius: 7px;     /* Bordures arrondies */
+    box-shadow: rgba(7, 65, 210, 0.1) 0px 9px 30px;
+
+    
+  }
+
+  .custom-tooltip .tippy-arrow {
+    color: #fff; /* Assure que la flèche prend la même couleur que le fond */
+  }
+  
+  .custom-tooltip[data-placement^='top'] .tippy-arrow {
+    border-top-color: #fff !important; /* Couleur de la flèche pour les tooltips en haut */
+  }
+  
+  .custom-tooltip[data-placement^='bottom'] .tippy-arrow {
+    border-bottom-color: #fff !important; /* Couleur de la flèche pour les tooltips en bas */
+  }
+  
+  .custom-tooltip[data-placement^='left'] .tippy-arrow {
+    border-left-color: #fff; /* Couleur de la flèche pour les tooltips à gauche */
+  }
+  
+  .custom-tooltip[data-placement^='right'] .tippy-arrow {
+    border-right-color: #fff !important; /* Couleur de la flèche pour les tooltips à droite */
+  }
+  
