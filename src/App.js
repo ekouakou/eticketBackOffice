@@ -8,6 +8,7 @@ import ClientListPage from './pageComponent/client/ClientListPage';
 import DetailClient from './pageComponent/client/DetailClient';
 import TicketListPage from './pageComponent/ticket/TicketListPage';
 import TableauDeBord from './pageComponent/dashboard/TableauDeBord';
+import DashboardAnnonceur from './pageComponent/dashboard/DashboardAnnonceur';
 import SaveEventData from './pageComponent/EticketEvent/SaveEventData';
 import ListeEventData from './pageComponent/EticketEvent/ListeEventData';
 import SaveEventBanner from './pageComponent/EticketBanner/SaveEventBanner';
@@ -56,7 +57,8 @@ function App() {
           <Route path={paths.clientList} element={<ClientListPage />} />
           <Route path={paths.ticketList} element={<TicketListPage />} />
           <Route path={paths.detailClient} element={<DetailClient />} />
-          <Route path={paths.dashboard} element={<TableauDeBord />} />
+          {/* <Route path={paths.dashboard} element={<TableauDeBord />} /> */}
+          <Route path={paths.dashboard} element={<DashboardAnnonceur />} />
           <Route path={paths.saveEventData} element={<SaveEventData />} />
           <Route path={paths.listeEventData} element={<ListeEventData />} />
           <Route path={paths.saveEventBanner} element={<SaveEventBanner />} />

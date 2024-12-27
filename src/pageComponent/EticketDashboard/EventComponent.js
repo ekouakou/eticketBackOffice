@@ -32,7 +32,7 @@ const EventComponent = () => {
       fetchData({
         mode: 'getEvenement',
         STR_UTITOKEN: storedUser.STR_UTITOKEN,
-        LG_EVEID: "g4da5KodEWHuuCIZuijtrV4i23pDHv99rJL79ACT",
+        LG_EVEID: "JUUnjb6XYC0M7lG2lx9oM1kJ2I3A1fKAOhbanqIA",
         DT_BEGIN: "2020-01-01",
         DT_END: "2025-08-31"
       }, apiUrl, setEventData);
@@ -43,15 +43,19 @@ const EventComponent = () => {
     <div className="col-xxl-6">
       <div className="card card-flush h-md-100">
         <div className="card-body py-9">
+
+        <h2 className="text-lg font-semibold mb-4">Evenement à venir</h2>
+
           <div className="row gx-9 h-100">
             <div className="col-sm-6 mb-10 mb-sm-0">
-              <div
+              {/* <div
                 className="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-400px min-h-sm-100 h-100"
                 style={{
                   backgroundSize: '100% 100%',
-                  backgroundImage: `url(${urlBaseImage + eventData?.STR_EVEBANNER})`, // Remplacez par la clé d'image de votre événement
+                  backgroundImage: `url()`,
                 }}
-              ></div>
+              ></div> */}
+              <img src={urlBaseImage + eventData?.STR_EVEPIC} className='img-fluid'/>
             </div>
             <div className="col-sm-6">
               <div className="d-flex flex-column h-100">
