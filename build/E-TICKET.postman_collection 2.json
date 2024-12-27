@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "af80d0b3-3ad7-4f31-8055-07ba2ae750f1",
+		"name": "E-TICKET",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8054777"
+	},
+	"item": [
+		{
+			"name": "Liste des activites",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mode",
+							"value": "listListe",
+							"type": "text"
+						},
+						{
+							"key": "STR_UTITOKEN",
+							"value": "wzpjku2dvokriz3phgop",
+							"type": "text"
+						},
+						{
+							"key": "LG_TYLID",
+							"value": "4",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/eticketbackend/backoffice/webservices/ConfigurationManager.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"eticketbackend",
+						"backoffice",
+						"webservices",
+						"ConfigurationManager.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Liste des categories",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mode",
+							"value": "listListe",
+							"type": "text"
+						},
+						{
+							"key": "STR_UTITOKEN",
+							"value": "wzpjku2dvokriz3phgop",
+							"type": "text"
+						},
+						{
+							"key": "LG_TYLID",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "STR_LSTOTHERVALUE",
+							"value": "0000000000000000000000000000000000000783",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/eticketbackend/backoffice/webservices/ConfigurationManager.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"eticketbackend",
+						"backoffice",
+						"webservices",
+						"ConfigurationManager.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creation d'un evenement",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mode",
+							"value": "createEvenement",
+							"type": "text"
+						},
+						{
+							"key": "STR_UTITOKEN",
+							"value": "wzpjku2dvokriz3phgoq",
+							"type": "text"
+						},
+						{
+							"key": "LG_LSTID",
+							"value": "000000000000000000000000000000000000085",
+							"type": "text"
+						},
+						{
+							"key": "STR_EVENAME",
+							"value": "Test 3",
+							"type": "text"
+						},
+						{
+							"key": "STR_EVEDESCRIPTION",
+							"value": "BOnsoir les gars 3",
+							"type": "text"
+						},
+						{
+							"key": "LG_LSTPLACEID",
+							"value": "0000000000000000000000000000000000000804",
+							"type": "text"
+						},
+						{
+							"key": "DT_EVEBEGIN",
+							"value": "2024-05-21",
+							"type": "text"
+						},
+						{
+							"key": "DT_EVEEND",
+							"value": "2024-05-21",
+							"type": "text"
+						},
+						{
+							"key": "HR_EVEBEGIN",
+							"value": "10:00",
+							"type": "text"
+						},
+						{
+							"key": "HR_EVEEND",
+							"value": "12:00",
+							"type": "text"
+						},
+						{
+							"key": "STR_EVEPIC",
+							"type": "file",
+							"src": "/Users/MAC/Downloads/58b800c46e8306948b2ef194d185538a.jpg"
+						},
+						{
+							"key": "STR_EVEBANNER",
+							"type": "file",
+							"src": "/Users/MAC/Downloads/426323748_872639891530390_9133842321979491549_n.jpg"
+						},
+						{
+							"key": "STR_EVEANNONCEUR",
+							"value": "Marco",
+							"type": "text"
+						},
+						{
+							"key": "LG_AGEREQUESTID",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "STR_EVEDISPLAYROOM",
+							"value": "0",
+							"description": "1: Affichage en salel, 0: affichage standard",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "STR_EVESTATUTFREE",
+							"value": "1",
+							"description": "1: Payant, 0: Gratuit",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/eticketbackend/backoffice/webservices/TicketManager.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"eticketbackend",
+						"backoffice",
+						"webservices",
+						"TicketManager.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Liste des evenements",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mode",
+							"value": "listEvenement",
+							"type": "text"
+						},
+						{
+							"key": "STR_UTITOKEN",
+							"value": "wzpjku2dvokriz3phgop",
+							"type": "text"
+						},
+						{
+							"key": "LG_LSTID",
+							"value": "000000000000000000000000000000000000085",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "DT_BEGIN",
+							"value": "2024-05-20",
+							"type": "text"
+						},
+						{
+							"key": "DT_END",
+							"value": "2024-05-21",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/eticketbackend/backoffice/webservices/TicketManager.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"eticketbackend",
+						"backoffice",
+						"webservices",
+						"TicketManager.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Liste des evenements vu depuis les clients",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mode",
+							"value": "listEvenementFront",
+							"type": "text"
+						},
+						{
+							"key": "STR_UTITOKEN",
+							"value": "wzpjku2dvokriz3phgop",
+							"type": "text"
+						},
+						{
+							"key": "LG_LSTID",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "DT_BEGIN",
+							"value": "2024-05-01",
+							"type": "text"
+						},
+						{
+							"key": "DT_END",
+							"value": "2024-05-27",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/eticketbackend/backoffice/webservices/TicketManager.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"eticketbackend",
+						"backoffice",
+						"webservices",
+						"TicketManager.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creation d'un ticket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mode",
+							"value": "createTicket",
+							"type": "text"
+						},
+						{
+							"key": "STR_UTITOKEN",
+							"value": "wzpjku2dvokriz3phgoq",
+							"type": "text"
+						},
+						{
+							"key": "LG_EVEID",
+							"value": "aruJ3RZVMuCDUsS6Iaw3JKe8jRrZZkUaihSqTqWa",
+							"description": "Identifiant de l'evenement",
+							"type": "text"
+						},
+						{
+							"key": "LG_LSTID",
+							"value": "0000000000000000000000000000000000000801",
+							"description": "Identifiant du type de place",
+							"type": "text"
+						},
+						{
+							"key": "STR_TICPHONE",
+							"value": "0141513892",
+							"type": "text"
+						},
+						{
+							"key": "STR_TICMAIL",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "DBL_TICAMOUNT",
+							"value": "25000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/eticketbackend/backoffice/webservices/TicketManager.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"eticketbackend",
+						"backoffice",
+						"webservices",
+						"TicketManager.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test d'upload de fichier",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mode",
+							"value": "uploadfile",
+							"type": "text"
+						},
+						{
+							"key": "STR_EVEPIC",
+							"type": "file",
+							"src": "/Users/MAC/Downloads/Logo SUNU Group 500x500px.png"
+						},
+						{
+							"key": "STR_EVEBANNER",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/eticketbackend/backoffice/webservices/TicketManager.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"eticketbackend",
+						"backoffice",
+						"webservices",
+						"TicketManager.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

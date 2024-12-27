@@ -33,7 +33,7 @@ const statsCards = [
         percentage: "75",
         goal: "€15,000 to Goal",
     },
-    
+
     {
         title: "Nombre client",
         value: "450",
@@ -152,197 +152,185 @@ const tendanceParType = {
 const DashboardAnnonceur = () => {
     return (
         <>
-            <div className={`d-flex flex-column flex-root app-root`} id="kt_app_root">
-                <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
-                    <AppHeader />
+            <div className="app-page flex-column flex-column-fluid" id="kt_app_page">
+                <div className="app-wrapper flex-column flex-row-fluid menu-gray-800" id="kt_app_page">
 
-                    <div className="app-wrapper flex-column flex-row-fluid menu-gray-800" id="kt_app_page">
-                        <div id="kt_app_sidebar" className="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
-                            {/* Logo de l'application */}
-                            <div className="app-sidebar-logo d-none d-md-block pt-7 px-8 pt-xl-11 mb-2" id="kt_app_sidebar_logo">
-                                <a href="index.html">
-                                    <img alt="Logo" src="assets/media/logos/logo_light.svg" className="h-65px theme-light-show" />
-                                    <img alt="Logo" src="assets/media/logos/logo_dark.svg" className="h-65px theme-dark-show" />
-                                </a>
-                            </div>
-                            <SidebarMenu />
-                        </div>
-                        <div className="app-main flex-column flex-row-fluid " id="kt_app_main">
-                            <div className="d-flex flex-column flex-column-fluid">
-                                <div id="kt_app_content" className="app-content  flex-column-fluid ">
-                                    <div id="kt_app_content_container" className="app-container  container-fluid " >
-                                        <div className="row">
-                                            <div className='col-lg-6'>
-                                                <div className='row'>
-                                                    {statsCards.map((stat, index) => (
-                                                        <div className='col-lg-6 col-xl-6  h-md-50 mb-xl-10'>
-                                                            <div key={index} className="card card-flush">
-                                                                {/*begin::Header*/}
-                                                                <div className="card-header pt-5">
-                                                                    <div className="card-title d-flex flex-column">
-                                                                        <div className="d-flex align-items-center">
-                                                                            {/*begin::Amount*/}
-                                                                            <span className="fs-2hx fw-bold text-gray-900 me-2 lh-1 ls-n2">
-                                                                                {stat.value}
-                                                                            </span>
-                                                                            {/*end::Amount*/}
-                                                                            {/*begin::Badge*/}
-                                                                            <span className="badge badge-light-danger fs-base">
-                                                                                <i className="ki-duotone ki-arrow-down fs-5 text-danger ms-n1">
-                                                                                    <span className="path1" />
-                                                                                    <span className="path2" />
-                                                                                </i>
-                                                                                {stat.percentage}
-                                                                            </span>
-                                                                            {/*end::Badge*/}
-                                                                        </div>
-                                                                        <span className="text-gray-500 pt-1 fw-semibold fs-6">
-                                                                            {stat.title}
+                    <div className="app-main flex-column flex-row-fluid " id="kt_app_main">
+                        <div className="d-flex flex-column flex-column-fluid">
+                            <div id="kt_app_content" className="app-content  flex-column-fluid ">
+                                <div id="kt_app_content_container" className="app-container  container-fluid " >
+                                    <div className="row">
+                                        <div className='col-lg-6'>
+                                            <div className='row'>
+                                                {statsCards.map((stat, index) => (
+                                                    <div className='col-lg-6 col-xl-6  h-md-50 mb-xl-10'>
+                                                        <div key={index} className="card card-flush">
+                                                            {/*begin::Header*/}
+                                                            <div className="card-header pt-5">
+                                                                <div className="card-title d-flex flex-column">
+                                                                    <div className="d-flex align-items-center">
+                                                                        {/*begin::Amount*/}
+                                                                        <span className="fs-2hx fw-bold text-gray-900 me-2 lh-1 ls-n2">
+                                                                            {stat.value}
                                                                         </span>
+                                                                        {/*end::Amount*/}
+                                                                        {/*begin::Badge*/}
+                                                                        <span className="badge badge-light-danger fs-base">
+                                                                            <i className="ki-duotone ki-arrow-down fs-5 text-danger ms-n1">
+                                                                                <span className="path1" />
+                                                                                <span className="path2" />
+                                                                            </i>
+                                                                            {stat.percentage}
+                                                                        </span>
+                                                                        {/*end::Badge*/}
                                                                     </div>
+                                                                    <span className="text-gray-500 pt-1 fw-semibold fs-6">
+                                                                        {stat.title}
+                                                                    </span>
                                                                 </div>
-                                                                {/*end::Header*/}
-
-                                                                {/*begin::Card body*/}
-                                                                <div className="card-body d-flex align-items-end pt-0">
-                                                                    <div className="d-flex align-items-center flex-column mt-3 w-100">
-                                                                        <div className="d-flex justify-content-between w-100 mt-auto mb-2">
-                                                                            <span className="fw-bolder fs-6 text-gray-900">{stat.goal}</span>
-                                                                            <span className="fw-bold fs-6 text-gray-500">{stat.percentage}%</span>
-                                                                        </div>
-                                                                        <div className="h-8px mx-3 w-100 bg-light-success rounded">
-                                                                            <div
-                                                                                className="bg-success rounded h-8px"
-                                                                                role="progressbar"
-                                                                                style={{ width: `${stat.percentage}%` }}
-                                                                                aria-valuenow={stat.percentage}
-                                                                                aria-valuemin={0}
-                                                                                aria-valuemax={100}
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                {/*end::Card body*/}
                                                             </div>
+                                                            {/*end::Header*/}
+
+                                                            {/*begin::Card body*/}
+                                                            <div className="card-body d-flex align-items-end pt-0">
+                                                                <div className="d-flex align-items-center flex-column mt-3 w-100">
+                                                                    <div className="d-flex justify-content-between w-100 mt-auto mb-2">
+                                                                        <span className="fw-bolder fs-6 text-gray-900">{stat.goal}</span>
+                                                                        <span className="fw-bold fs-6 text-gray-500">{stat.percentage}%</span>
+                                                                    </div>
+                                                                    <div className="h-8px mx-3 w-100 bg-light-success rounded">
+                                                                        <div
+                                                                            className="bg-success rounded h-8px"
+                                                                            role="progressbar"
+                                                                            style={{ width: `${stat.percentage}%` }}
+                                                                            aria-valuenow={stat.percentage}
+                                                                            aria-valuemin={0}
+                                                                            aria-valuemax={100}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {/*end::Card body*/}
                                                         </div>
-
-                                                    ))}
-
-                                                    <div className="col-lg-6 col-xl-6">
-                                                        {/* <TicketCard totalTickets={79} pendingTickets={43} progressPercentage={10} /> */}
                                                     </div>
-                                                    <div className="col-lg-6 col-xl-6">
-                                                        {/* <HighlightCard /> */}
-                                                    </div>
+
+                                                ))}
+
+                                                <div className="col-lg-6 col-xl-6">
+                                                    {/* <TicketCard totalTickets={79} pendingTickets={43} progressPercentage={10} /> */}
+                                                </div>
+                                                <div className="col-lg-6 col-xl-6">
+                                                    {/* <HighlightCard /> */}
                                                 </div>
                                             </div>
-
-                                            <div className='col-lg-6'>
-                                                <Timeline />
-                                            </div>
-
-                                            {/*end::Col*/}
                                         </div>
 
-                                        <div className="row  mt-5">
-                                            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 mb-10">
+                                        <div className='col-lg-6'>
+                                            <Timeline />
+                                        </div>
 
-                                                <SalesStatisticsCard />
-                                            </div>
-                                            <EventComponent />
-                                            <SalesStatisticsCard2 />
+                                        {/*end::Col*/}
+                                    </div>
 
-                                            <div className="col-xxl-6 d-none">
-                                                <div className="card card-flush h-md-100">
-                                                    <div className="card-body py-9">
-                                                        <h2 className="text-lg font-semibold mb-4">Comparaison des ventes et revenus</h2>
-                                                        <ResponsiveContainer width="100%" height={400}>
-                                                            <BarChart data={performanceParType}>
-                                                                <CartesianGrid strokeDasharray="3 3" />
-                                                                <XAxis dataKey="type" />
-                                                                <YAxis yAxisId="left" />
-                                                                <YAxis yAxisId="right" orientation="right" />
-                                                                <Tooltip />
-                                                                <Legend />
-                                                                <Bar yAxisId="left" dataKey="ventes" name="Nombre de ventes" fill="#8884d8" />
-                                                                <Bar yAxisId="right" dataKey="revenu" name="Revenu (€)" fill="#82ca9d" />
-                                                            </BarChart>
-                                                        </ResponsiveContainer>
+                                    <div className="row  mt-5">
+                                        <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 mb-10">
 
-                                                    </div>
+                                            <SalesStatisticsCard />
+                                        </div>
+                                        <EventComponent />
+                                        <SalesStatisticsCard2 />
+
+                                        <div className="col-xxl-6 d-none">
+                                            <div className="card card-flush h-md-100">
+                                                <div className="card-body py-9">
+                                                    <h2 className="text-lg font-semibold mb-4">Comparaison des ventes et revenus</h2>
+                                                    <ResponsiveContainer width="100%" height={400}>
+                                                        <BarChart data={performanceParType}>
+                                                            <CartesianGrid strokeDasharray="3 3" />
+                                                            <XAxis dataKey="type" />
+                                                            <YAxis yAxisId="left" />
+                                                            <YAxis yAxisId="right" orientation="right" />
+                                                            <Tooltip />
+                                                            <Legend />
+                                                            <Bar yAxisId="left" dataKey="ventes" name="Nombre de ventes" fill="#8884d8" />
+                                                            <Bar yAxisId="right" dataKey="revenu" name="Revenu (€)" fill="#82ca9d" />
+                                                        </BarChart>
+                                                    </ResponsiveContainer>
+
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div className="col-xxl-6">
-                                                <div className="card card-flush h-md-100">
-                                                    <div className="card-body py-9">
-                                                        <h2 className="text-lg font-semibold mb-4">Évolution des ventes par type</h2>
-                                                        <ResponsiveContainer width="100%" height={400}>
-                                                            <LineChart data={tendanceParType.data}>
-                                                                <CartesianGrid strokeDasharray="3 3" />
-                                                                <XAxis dataKey="mois" />
-                                                                <YAxis />
-                                                                <Tooltip />
-                                                                <Legend />
-                                                                <Line type="monotone" dataKey="Concert" stroke="#8884d8" />
-                                                                <Line type="monotone" dataKey="Théâtre" stroke="#82ca9d" />
-                                                                <Line type="monotone" dataKey="Sport" stroke="#ffc658" />
-                                                                <Line type="monotone" dataKey="Festival" stroke="#ff8042" />
-                                                                <Line type="monotone" dataKey="Exposition" stroke="#8dd1e1" />
-                                                            </LineChart>
-                                                        </ResponsiveContainer>
+                                        <div className="col-xxl-6">
+                                            <div className="card card-flush h-md-100">
+                                                <div className="card-body py-9">
+                                                    <h2 className="text-lg font-semibold mb-4">Évolution des ventes par type</h2>
+                                                    <ResponsiveContainer width="100%" height={400}>
+                                                        <LineChart data={tendanceParType.data}>
+                                                            <CartesianGrid strokeDasharray="3 3" />
+                                                            <XAxis dataKey="mois" />
+                                                            <YAxis />
+                                                            <Tooltip />
+                                                            <Legend />
+                                                            <Line type="monotone" dataKey="Concert" stroke="#8884d8" />
+                                                            <Line type="monotone" dataKey="Théâtre" stroke="#82ca9d" />
+                                                            <Line type="monotone" dataKey="Sport" stroke="#ffc658" />
+                                                            <Line type="monotone" dataKey="Festival" stroke="#ff8042" />
+                                                            <Line type="monotone" dataKey="Exposition" stroke="#8dd1e1" />
+                                                        </LineChart>
+                                                    </ResponsiveContainer>
 
-                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div className="col-xxl-6">
-                                                <div className="card card-flush h-md-100">
-                                                    <div className="card-body py-9">
-                                                        <h2 className="text-lg font-semibold mb-4">Récapitulatif par type d'événement</h2>
-                                                        <div className="overflow-x-auto">
-                                                            <div className="table-responsive">
-                                                                <table className="table table-row-dashed align-middle gs-0 gy-4 my-0">
-                                                                    <thead>
-                                                                        <tr className="border-bottom-0">
-                                                                            <th className="p-0 min-w-175px">Type</th>
-                                                                            <th className="p-0 min-w-100px">Ventes</th>
-                                                                            <th className="p-0 min-w-100px">Vues</th>
-                                                                            <th className="p-0 min-w-100px">Revenu (€)</th>
-                                                                            <th className="p-0 min-w-100px">Taux Conversion (%)</th>
-                                                                            {/* <th className="p-0 min-w-100px">Prix Moyen (€)</th>
+                                        <div className="col-xxl-6">
+                                            <div className="card card-flush h-md-100">
+                                                <div className="card-body py-9">
+                                                    <h2 className="text-lg font-semibold mb-4">Récapitulatif par type d'événement</h2>
+                                                    <div className="overflow-x-auto">
+                                                        <div className="table-responsive">
+                                                            <table className="table table-row-dashed align-middle gs-0 gy-4 my-0">
+                                                                <thead>
+                                                                    <tr className="border-bottom-0">
+                                                                        <th className="p-0 min-w-175px">Type</th>
+                                                                        <th className="p-0 min-w-100px">Ventes</th>
+                                                                        <th className="p-0 min-w-100px">Vues</th>
+                                                                        <th className="p-0 min-w-100px">Revenu (€)</th>
+                                                                        <th className="p-0 min-w-100px">Taux Conversion (%)</th>
+                                                                        {/* <th className="p-0 min-w-100px">Prix Moyen (€)</th>
                                                                             <th className="p-0 min-w-100px">Satisfaction</th> */}
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {performanceParType.map((performance, index) => (
-                                                                            <tr key={index}>
-                                                                                <td>
-                                                                                    <span className="text-gray-900 fw-bold fs-6">
-                                                                                        {performance.type}
-                                                                                    </span>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <span className="text-gray-900 fw-bold fs-6">
-                                                                                        {performance.ventes}
-                                                                                    </span>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <span className="text-gray-900 fw-bold fs-6">
-                                                                                        {performance.vues}
-                                                                                    </span>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <span className="text-gray-900 fw-bold fs-6">
-                                                                                        {performance.revenu.toLocaleString()}
-                                                                                    </span>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <span className="text-gray-900 fw-bold fs-6">
-                                                                                        {performance.tauxConversion}%
-                                                                                    </span>
-                                                                                </td>
-                                                                                {/* <td>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {performanceParType.map((performance, index) => (
+                                                                        <tr key={index}>
+                                                                            <td>
+                                                                                <span className="text-gray-900 fw-bold fs-6">
+                                                                                    {performance.type}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="text-gray-900 fw-bold fs-6">
+                                                                                    {performance.ventes}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="text-gray-900 fw-bold fs-6">
+                                                                                    {performance.vues}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="text-gray-900 fw-bold fs-6">
+                                                                                    {performance.revenu.toLocaleString()}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="text-gray-900 fw-bold fs-6">
+                                                                                    {performance.tauxConversion}%
+                                                                                </span>
+                                                                            </td>
+                                                                            {/* <td>
                                                                                     <span className="text-gray-900 fw-bold fs-6">
                                                                                         {performance.prixMoyen.toFixed(2)} €
                                                                                     </span>
@@ -352,73 +340,72 @@ const DashboardAnnonceur = () => {
                                                                                         {performance.satisfaction.toFixed(1)}
                                                                                     </span>
                                                                                 </td> */}
-                                                                            </tr>
-                                                                        ))}
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
+                                                                        </tr>
+                                                                    ))}
+                                                                </tbody>
+                                                            </table>
                                                         </div>
-
                                                     </div>
+
                                                 </div>
                                             </div>
-
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            {/* footer */}
-                            <div id="kt_app_footer" className="app-footer ">
-                                <div className="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
-                                    <div className="text-gray-900 order-2 order-md-1">
-                                        <span className="text-muted fw-semibold me-1">2024©</span>
-                                        <a
-                                            href="../../../../keenthemes.com/index.html"
-                                            target="_blank"
-                                            className="text-gray-800 text-hover-primary"
-                                        >
-                                            Keenthemes
-                                        </a>
                                     </div>
-                                    {/*end::Copyright*/}
-                                    {/*begin::Menu*/}
-                                    <ul className="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                                        <li className="menu-item">
-                                            <a
-                                                href="../../../../keenthemes.com/index.html"
-                                                target="_blank"
-                                                className="menu-link px-2"
-                                            >
-                                                About
-                                            </a>
-                                        </li>
-                                        <li className="menu-item">
-                                            <a
-                                                href="../../../../devs.keenthemes.com/index.html"
-                                                target="_blank"
-                                                className="menu-link px-2"
-                                            >
-                                                Support
-                                            </a>
-                                        </li>
-                                        <li className="menu-item">
-                                            <a
-                                                href="../../../../themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/index.html"
-                                                target="_blank"
-                                                className="menu-link px-2"
-                                            >
-                                                Purchase
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    {/*end::Menu*/}{" "}
                                 </div>
-                                {/*end::Footer container*/}
                             </div>
                         </div>
 
+                        {/* footer */}
+                        <div id="kt_app_footer" className="app-footer ">
+                            <div className="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
+                                <div className="text-gray-900 order-2 order-md-1">
+                                    <span className="text-muted fw-semibold me-1">2024©</span>
+                                    <a
+                                        href="../../../../keenthemes.com/index.html"
+                                        target="_blank"
+                                        className="text-gray-800 text-hover-primary"
+                                    >
+                                        Keenthemes
+                                    </a>
+                                </div>
+                                {/*end::Copyright*/}
+                                {/*begin::Menu*/}
+                                <ul className="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
+                                    <li className="menu-item">
+                                        <a
+                                            href="../../../../keenthemes.com/index.html"
+                                            target="_blank"
+                                            className="menu-link px-2"
+                                        >
+                                            About
+                                        </a>
+                                    </li>
+                                    <li className="menu-item">
+                                        <a
+                                            href="../../../../devs.keenthemes.com/index.html"
+                                            target="_blank"
+                                            className="menu-link px-2"
+                                        >
+                                            Support
+                                        </a>
+                                    </li>
+                                    <li className="menu-item">
+                                        <a
+                                            href="../../../../themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/index.html"
+                                            target="_blank"
+                                            className="menu-link px-2"
+                                        >
+                                            Purchase
+                                        </a>
+                                    </li>
+                                </ul>
+                                {/*end::Menu*/}{" "}
+                            </div>
+                            {/*end::Footer container*/}
+                        </div>
                     </div>
+
                 </div>
             </div>
         </>

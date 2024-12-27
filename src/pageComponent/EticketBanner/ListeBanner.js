@@ -8,48 +8,37 @@ import 'primeicons/primeicons.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DataTable from '../DataTable';
 
-
 const ListeBanner = () => {
-    const urlBaseImage = localStorage.getItem("urlBaseImage");
-
+    // Définition des colonnes pour le tableau
     const columns = [
         {
             title: 'Photo',
             dataKey: 'STR_BANPATH',
             className: 'w-250px',
             render: (imagePath) => {
-                // Assurez-vous que imagePath est bien une chaîne de caractères
-                const imageUrl = `${urlBaseImage + imagePath.STR_BANPATH}`;
-                console.log('Image URL:', imagePath.STR_BANPATH); // Vérifiez l'URL complète
+                // Génère l'URL complète de l'image
+                const imageUrl = `${process.env.REACT_APP_BACKEND_URL}${imagePath.STR_BANPATH}`;
+                console.log('Image URL:', imagePath.STR_BANPATH);
                 return (
                     <img 
                         src={imageUrl} 
-                        alt="Utilisateur" 
+                        alt="Bannière" 
                         style={{ width: 'auto', height: '40px' }} 
                     />
                 );
             }
         },
-        // { title: 'DT_UTICREATED', dataKey: 'DT_UTICREATED', className: 'w-150px' },
-        // { title: 'LG_AGEID', dataKey: 'LG_AGEID', className: 'min-w-100px' },
-        // { title: 'LG_PROID', dataKey: 'LG_PROID', className: 'text-center' },
         { title: 'Titre de la bannière', dataKey: 'STR_BANNAME', className: 'w-250px' },
         { title: 'Description', dataKey: 'STR_BANDESCRIPTION', className: 'w-650px' },
-        // { title: 'Email', dataKey: 'STR_UTIMAIL', className: 'min-w-100px' },
-        // { title: 'Téléphone', dataKey: 'STR_UTIPHONE', className: 'text-center' },
-        
         {
             title: 'Statut',
             dataKey: 'STR_BANSTATUT',
             className: 'w-50px',
             render: (status) => {
-                let badgeClass = 'badge-light-warning'; // Par défaut
-                let statusText = status.STR_BANSTATUT; // Valeur par défaut
-                console.log(status.STR_BANSTATUT);
+                let badgeClass = 'badge-light-warning';
+                let statusText = status.STR_BANSTATUT;
 
                 if (typeof status === 'string') {
-                    statusText = status;
-                    // Définir les classes selon le statut
                     switch (status.STR_BANSTATUT) {
                         case 'enable':
                             badgeClass = 'badge-light-success';
@@ -73,22 +62,22 @@ const ListeBanner = () => {
         { title: 'Action', dataKey: 'actions', className: 'text-center w-50px' }
     ];
 
-
+    // Options de filtre pour la table (exemple de structure, non utilisée ici)
     const filterOptions = {
         category: ['Category1', 'Category2', 'Category3'],
-        status: ['Active', 'Inactive'],
-        // Ajoutez d'autres filtres ici
+        status: ['Active', 'Inactive']
     };
 
-    const apiUrl = "ConfigurationManager.php";
+    // États de composant
     const [searchTerm, setSearchTerm] = useState('');
     const [eventData, setEventData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [user, setUser] = useState(null); // Add state for user
+    const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
+    // Fonction pour récupérer les données depuis l'API
     const fetchData = (params, url, setData) => {
         crudData(params, url)
             .then(response => {
@@ -103,17 +92,26 @@ const ListeBanner = () => {
             });
     };
 
+    // Chargement initial des données et vérification de l'utilisateur connecté
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem('userConnectedData'));
         const paths = JSON.parse(localStorage.getItem("appPaths"));
+
         if (!storedUser) {
-            navigate(paths.signIn); // Redirige vers la page d'accueil si l'utilisateur est vide
+            navigate(paths.signIn); // Redirige vers la page de connexion si aucun utilisateur connecté
         } else {
-            setUser(storedUser); // Set user in state
-            fetchData({ mode: 'listBanniere', STR_UTITOKEN: storedUser.STR_UTITOKEN, LG_AGEID: storedUser.LG_AGEID, DT_BEGIN: "2020-01-01", DT_END: "2027-08-31" }, apiUrl, setEventData);
+            setUser(storedUser);
+            fetchData({ 
+                mode: 'listBanniere', 
+                STR_UTITOKEN: storedUser.STR_UTITOKEN, 
+                LG_AGEID: storedUser.LG_AGEID, 
+                DT_BEGIN:  process.env.REACT_APP_DT_BEGIN, 
+                DT_END:  process.env.REACT_APP_DT_END 
+            }, process.env.REACT_APP_CONFIGURATION_MANAGER_API_URL, setEventData);
         }
     }, [navigate]);
 
+    // Gestion de la recherche
     const handleSearch = (e) => {
         const value = e.target.value.toLowerCase();
         setSearchTerm(value);
@@ -127,31 +125,64 @@ const ListeBanner = () => {
         });
 
         setFilteredData(filtered);
-        setCurrentPage(1);  // Reset à la première page après la recherche
+        setCurrentPage(1);  // Réinitialise à la première page après la recherche
     };
 
+    // Actions disponibles sur les bannières
     const actions = [
-        // {
-        //   title: 'Voir',
-        //   icon: 'fa-eye',
-        //   handler: (id) => console.log(`Voir ${id}`),
-        // },
         {
-          title: 'Modifier',
-          icon: 'fa-edit ',
-          styleClass:"text-warning",
-          handler: (LG_BANID) => {
-            navigate('/save-banner', { state: { LG_BANID } });  // Redirige vers la page de modification en passant l'ID
+            title: 'Modifier',
+            icon: 'fa-edit',
+            styleClass: "text-warning",
+            handler: (LG_BANID) => {
+                navigate('/save-banner', { state: { LG_BANID } });
             }
         },
         {
-          title: 'Supprimer',
-          icon: 'fa-trash',
-          styleClass:"text-danger",
-          handler: (LG_BANID) => {
-            if (user) {
+            title: 'Supprimer',
+            icon: 'fa-trash',
+            styleClass: "text-danger",
+            handler: (LG_BANID) => {
+                if (user) {
+                    Swal.fire({
+                        title: `Êtes-vous sûr de vouloir supprimer la bannière ${LG_BANID} ?`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Oui',
+                        cancelButtonText: 'Annuler',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            crudData({ 
+                                mode: 'updateBanniereStatut', 
+                                LG_BANID: LG_BANID, 
+                                STR_BANSTATUT: 'delete', 
+                                STR_UTITOKEN: user.STR_UTITOKEN 
+                            }, process.env.REACT_APP_CONFIGURATION_MANAGER_API_URL)
+                                .then(() => {
+                                    fetchData({ 
+                                        mode: 'listBanniere', 
+                                        STR_UTITOKEN: user.STR_UTITOKEN, 
+                                        LG_AGEID: user.LG_AGEID, 
+                                        DT_BEGIN:  process.env.REACT_APP_DT_BEGIN, 
+                                        DT_END:  process.env.REACT_APP_DT_END 
+                                    }, process.env.REACT_APP_CONFIGURATION_MANAGER_API_URL, setEventData);
+                                })
+                                .catch(error => console.error('Erreur lors de la suppression:', error));
+                        }
+                    });
+                }
+            }
+        },
+        {
+            title: 'Activer/Désactiver',
+            icon: 'fa-ban',
+            styleClass: "text-primary",
+            handler: (LG_BANID, STR_BANSTATUT, isActive) => {
+                const action = STR_BANSTATUT === 'enable' ? 'disable' : 'enable';
+
                 Swal.fire({
-                    title: 'Êtes-vous sûr de vouloir effectuer la supression de l\'évenement ?' + LG_BANID,
+                    title: `Êtes-vous sûr de vouloir ${isActive ? 'désactiver' : 'activer'} cette bannière ?`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Oui',
@@ -159,54 +190,34 @@ const ListeBanner = () => {
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        crudData({ mode: 'updateBanniereStatut', LG_BANID: LG_BANID, STR_BANSTATUT: 'delete', STR_UTITOKEN: user.STR_UTITOKEN }, apiUrl)
-                            .then(() => {
-                                fetchData({ mode: 'listBanniere', STR_UTITOKEN: user.STR_UTITOKEN, LG_AGEID: user.LG_AGEID, DT_BEGIN: "2020-01-01", DT_END: "2027-08-31" }, apiUrl, setEventData);
-                            })
-                            .catch(error => console.error('Erreur lors de la suppression:', error));
+                        crudData({
+                            mode: 'updateBanniereStatut',
+                            LG_BANID: LG_BANID,
+                            STR_EVESTATUT: action,
+                            STR_UTITOKEN: user.STR_UTITOKEN
+                        }, process.env.REACT_APP_CONFIGURATION_MANAGER_API_URL)
+                        .then(response => {
+                            if (response.data.code_statut === "1") {
+                                fetchData({ 
+                                    mode: 'listBanniere', 
+                                    STR_UTITOKEN: user.STR_UTITOKEN, 
+                                    LG_AGEID: user.LG_AGEID, 
+                                    DT_BEGIN:  process.env.REACT_APP_DT_BEGIN, 
+                                    DT_END:  process.env.REACT_APP_DT_END 
+                                }, process.env.REACT_APP_CONFIGURATION_MANAGER_API_URL, setEventData);
+                            } else {
+                                Swal.fire('Erreur', 'Le changement de statut a échoué.', 'error');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erreur lors du changement de statut:', error);
+                            Swal.fire('Erreur', 'Une erreur est survenue. Veuillez réessayer.', 'error');
+                        });
                     }
                 });
             }
         }
-        },
-        {
-          title: 'Activer/Désactiver',
-          icon: 'fa-ban', // ou fa-check selon l'état
-          styleClass:"text-primary",
-          handler: (LG_BANID, STR_BANSTATUT, isActive) => {
-            const action = STR_BANSTATUT === 'enable' ? 'disable' : 'enable';
-    
-            Swal.fire({
-                title: `Êtes-vous sûr de vouloir ${isActive ? 'désactiver' : 'activer'} cet événement ?`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Oui',
-                cancelButtonText: 'Annuler',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    crudData({
-                        mode: 'updateBanniereStatut',
-                        LG_BANID: LG_BANID,
-                        STR_EVESTATUT: action,
-                        STR_UTITOKEN: user.STR_UTITOKEN,
-                    }, apiUrl)
-                    .then(response => {
-                        if (response.data.code_statut === "1") {
-                            fetchData({ mode: 'listBanniere', STR_UTITOKEN: user.STR_UTITOKEN, LG_AGEID: user.LG_AGEID, DT_BEGIN: "2020-01-01", DT_END: "2027-08-31" }, apiUrl, setEventData);
-                        } else {
-                            Swal.fire('Erreur', 'Le changement de statut a échoué.', 'error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Erreur lors du changement de statut:', error);
-                        Swal.fire('Erreur', 'Une erreur est survenue. Veuillez réessayer.', 'error');
-                    });
-                }
-            });
-        },
-        },
-      ];
+    ];
 
     return (
         <>

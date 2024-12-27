@@ -269,6 +269,9 @@ const EventListe = () => {
         <>
         
             <div className="app-main flex-column flex-row-fluid" id="kt_app_main">
+
+            <h1>Ajouter un nouvel événement</h1>
+
                 <div className="d-flex flex-column flex-column-fluid">
                     <div id="kt_app_content" className="app-content flex-column-fluid">
                         <div id="kt_app_content_container" className="app-container container-fluid">

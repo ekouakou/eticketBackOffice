@@ -29,9 +29,9 @@ const fullUrl = getFullUrl();
 
 // +++++++++++++++ FONCTION +++++++++++++++++++
 
-const urlBaseImage = "eticketbackend/backoffice/"//alert(fullUrl+urlBaseImage); backoffice
+//const urlBaseImage = "eticketbackend/backoffice/"//alert(fullUrl+urlBaseImage); backoffice
 const rootUrl = fullUrl + "eticketbackend/backoffice/webservices/"; //Production //eticketbackend/
-localStorage.setItem("urlBaseImage", fullUrl + urlBaseImage);
+// localStorage.setItem("urlBaseImage", fullUrl + urlBaseImage);
 
 
 

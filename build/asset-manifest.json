@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/eticketAdmin/static/css/main.663e3692.css",
+    "main.js": "/eticketAdmin/static/js/main.8c8ed7a8.js",
+    "static/js/213.3023c968.chunk.js": "/eticketAdmin/static/js/213.3023c968.chunk.js",
+    "static/js/667.7ee31085.chunk.js": "/eticketAdmin/static/js/667.7ee31085.chunk.js",
+    "static/js/453.b9375fe4.chunk.js": "/eticketAdmin/static/js/453.b9375fe4.chunk.js",
+    "static/media/primeicons.svg": "/eticketAdmin/static/media/primeicons.6ed59f962963a4a73af2.svg",
+    "static/media/primeicons.eot": "/eticketAdmin/static/media/primeicons.ff0c4cd79b2ffca2de54.eot",
+    "static/media/primeicons.woff": "/eticketAdmin/static/media/primeicons.8931fda1930c3bd21e96.woff",
+    "static/media/primeicons.ttf": "/eticketAdmin/static/media/primeicons.a5c2a53d1ff7a9ff5933.ttf",
+    "static/media/primeicons.woff2": "/eticketAdmin/static/media/primeicons.024b32cc7bf399b1a847.woff2",
+    "index.html": "/eticketAdmin/index.html",
+    "main.663e3692.css.map": "/eticketAdmin/static/css/main.663e3692.css.map",
+    "main.8c8ed7a8.js.map": "/eticketAdmin/static/js/main.8c8ed7a8.js.map",
+    "213.3023c968.chunk.js.map": "/eticketAdmin/static/js/213.3023c968.chunk.js.map",
+    "667.7ee31085.chunk.js.map": "/eticketAdmin/static/js/667.7ee31085.chunk.js.map",
+    "453.b9375fe4.chunk.js.map": "/eticketAdmin/static/js/453.b9375fe4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.663e3692.css",
+    "static/js/main.8c8ed7a8.js"
+  ]
+}

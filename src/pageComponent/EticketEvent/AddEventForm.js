@@ -64,7 +64,7 @@ const AddEventForm = () => {
     const paths = JSON.parse(localStorage.getItem("appPaths"));
     const apiUrl = "TicketManager.php";
     const apiCategorieTicketUrl = "ConfigurationManager.php";
-    const urlBaseImage = localStorage.getItem("urlBaseImage");
+    // const process.env.REACT_APP_BACKEND_URL = localStorage.getItem("process.env.REACT_APP_BACKEND_URL");
     //imageBaseUrl = "http://localhost/backoffice/"
 
     const [showModal, setShowModal] = useState(false);
@@ -356,6 +356,8 @@ const AddEventForm = () => {
 
     // Function to handle file changes and manage preview
     const handleFileChange = (fieldName, fileOrUrl) => {
+
+        alert(fieldName)
         // Si fileOrUrl est un fichier, on utilise createObjectURL
         if (fileOrUrl instanceof File || fileOrUrl instanceof Blob) {
             setFormData((prevData) => ({
@@ -377,6 +379,7 @@ const AddEventForm = () => {
                 default:
                     break;
             }
+
         } else if (typeof fileOrUrl === "string") {
             // Si fileOrUrl est une chaîne (URL), on l'utilise directement
             setFormData((prevData) => ({
@@ -384,19 +387,24 @@ const AddEventForm = () => {
                 [fieldName]: fileOrUrl, // Stocker le chemin de l'image
             }));
 
+            alert(fileOrUrl)
+
+            
+
             // Mettre à jour les aperçus basés sur l'URL existante
+          
             switch (fieldName) {
                 case "STR_EVEPIC":
-                    setPreviewPic(urlBaseImage + "images/product/" + fileOrUrl);
+                    setPreviewPic(process.env.REACT_APP_BACKEND_URL + fileOrUrl);
                     break;
                 case "STR_EVEBANNER":
                     setPreviewBanner(
-                        urlBaseImage + "images/product/" + fileOrUrl
+                        process.env.REACT_APP_BACKEND_URL + fileOrUrl
                     );
                     break;
                 case "STR_EVEANNONCEURPIC":
                     setPreviewAnnonceurPic(
-                        urlBaseImage + "images/product/" + fileOrUrl
+                        process.env.REACT_APP_BACKEND_URL + fileOrUrl
                     );
                     break;
                 default:
@@ -413,7 +421,6 @@ const AddEventForm = () => {
     useEffect(() => {
         if (location.state && location.state.LG_EVEID) {
             setEventId(location.state.LG_EVEID);
-
             // Mise à jour des autres états
             setShowPrice(
                 location.state.STR_EVESTATUTFREE === "1" ? true : false
@@ -433,8 +440,8 @@ const AddEventForm = () => {
                             LG_TYLID: "TYPEPLACE",
                             STR_LSTOTHERVALUE:
                                 showPrice === true ||
-                                showPrice === "1" ||
-                                showPrice === 1
+                                    showPrice === "1" ||
+                                    showPrice === 1
                                     ? "1"
                                     : "0",
                         },
@@ -482,8 +489,8 @@ const AddEventForm = () => {
                     LG_TYLID: "TYPEPLACE",
                     STR_LSTOTHERVALUE:
                         showPrice === true ||
-                        showPrice === "1" ||
-                        showPrice === 1
+                            showPrice === "1" ||
+                            showPrice === 1
                             ? "1"
                             : "0",
                 },
@@ -506,7 +513,8 @@ const AddEventForm = () => {
 
     const urlToFile = async (imageUrl, fileName = "image.jpg") => {
         try {
-            const response = await fetch(imageUrl, {mode: 'cors',
+            const response = await fetch(imageUrl, {
+                mode: 'cors',
                 method: 'GET'
             });
             console.log("erreur" + response)
@@ -535,6 +543,9 @@ const AddEventForm = () => {
                 const parts = path.split("/");
                 return parts[parts.length - 1];
             };
+
+            console.log("_________________ eventData _________________ ");
+
 
             // Mise à jour des données du formulaire
             setFormData({
@@ -565,17 +576,20 @@ const AddEventForm = () => {
 
             // Convertir les images en fichiers et appeler handleFileChange
             if (eventData?.STR_EVEPIC) {
-                const imageUrl = urlBaseImage + eventData?.STR_EVEPIC;
+                const imageUrl = process.env.REACT_APP_BACKEND_URL + eventData?.STR_EVEPIC;
                 urlToFile(imageUrl, extractFileName(eventData.STR_EVEPIC)).then(
                     (file) => {
                         console.log("Photo trouvée:" + imageUrl);
-                        if (file) handleFileChange("STR_EVEPIC", file);
+                         handleFileChange("STR_EVEPIC", eventData?.STR_EVEPIC);
                     }
                 );
             }
 
+            
+
+
             if (eventData?.STR_EVEBANNER) {
-                const bannerUrl = urlBaseImage + eventData?.STR_EVEBANNER;
+                const bannerUrl = process.env.REACT_APP_BACKEND_URL + eventData?.STR_EVEBANNER;
                 urlToFile(
                     bannerUrl,
                     extractFileName(eventData.STR_EVEBANNER)
@@ -586,7 +600,7 @@ const AddEventForm = () => {
 
             if (eventData?.STR_EVEANNONCEURPIC) {
                 const announcerPicUrl =
-                    urlBaseImage + eventData?.STR_EVEANNONCEURPIC;
+                    process.env.REACT_APP_BACKEND_URL + eventData?.STR_EVEANNONCEURPIC;
                 urlToFile(
                     announcerPicUrl,
                     extractFileName(eventData.STR_EVEANNONCEURPIC)
@@ -830,8 +844,7 @@ const AddEventForm = () => {
                                                     {/* <a className="btn btn-sm btn-light btn-active-light-primary" onClick={() => handleEditClick()}> Edit </a> */}
                                                     <div className="card-title">
                                                         <h2>
-                                                            Information génerale
-                                                            sur l'évènement
+                                                            Information génerale sur l'évènement
                                                         </h2>
                                                     </div>
                                                 </div>
@@ -898,9 +911,9 @@ const AddEventForm = () => {
                                                                     l'évenement
                                                                 </label>
                                                                 <Select
-                                                                components={
-                                                                  animatedComponents
-                                                              }
+                                                                    components={
+                                                                        animatedComponents
+                                                                    }
                                                                     options={
                                                                         lieuActiviteData
                                                                     }
@@ -1132,11 +1145,10 @@ const AddEventForm = () => {
 
                                                     <div className="fv-row mb-2 col-lg-6 d-flex align-items-stretch">
                                                         <div
-                                                            className={`notice ${
-                                                                showBanner
+                                                            className={`notice ${showBanner
                                                                     ? "bg-light-success border-success"
                                                                     : "bg-light-warning border-warning"
-                                                            } align-items-center rounded border border-dashed mb-5 px-5 py-3 h-100 w-100`}
+                                                                } align-items-center rounded border border-dashed mb-5 px-5 py-3 h-100 w-100`}
                                                             id="kt_ecommerce_add_product_media"
                                                         >
                                                             <div className="dz-message needsclick d-flex">
@@ -1283,11 +1295,10 @@ const AddEventForm = () => {
                                                 <div className="card-body pt-0">
                                                     <div className="col-xl-12 col-lg-12 d-flex flex-column">
                                                         <div
-                                                            className={`notice d-flex ${
-                                                                showPrice
+                                                            className={`notice d-flex ${showPrice
                                                                     ? "bg-light-danger border-danger"
                                                                     : "bg-light-success border-success"
-                                                            } align-items-center rounded border border-dashed mb-5 p-6 h-100`}
+                                                                } align-items-center rounded border border-dashed mb-5 p-6 h-100`}
                                                         >
                                                             <Switch
                                                                 onColor="#f14c41"
@@ -1324,11 +1335,10 @@ const AddEventForm = () => {
                                                                         sera
                                                                         <a
                                                                             href="#"
-                                                                            className={`fw-bold badge me-3 ${
-                                                                                showPrice
+                                                                            className={`fw-bold badge me-3 ${showPrice
                                                                                     ? "badge-danger"
                                                                                     : "badge-success"
-                                                                            }`}
+                                                                                }`}
                                                                         >
                                                                             {showPrice
                                                                                 ? "Payante"
@@ -1414,19 +1424,19 @@ const AddEventForm = () => {
                                                                     <div className="d-flex">
                                                                         {showPrice >
                                                                             0 && (
-                                                                            <div
-                                                                                className="btn btn-sm btn-primary"
-                                                                                id="kt_user_follow_button"
-                                                                                onClick={
-                                                                                    handleAddCategory
-                                                                                }
-                                                                            >
-                                                                                <i className="fa fa-plus"></i>
-                                                                                <span className="indicator-label">
-                                                                                    Ajouter
-                                                                                </span>
-                                                                            </div>
-                                                                        )}
+                                                                                <div
+                                                                                    className="btn btn-sm btn-primary"
+                                                                                    id="kt_user_follow_button"
+                                                                                    onClick={
+                                                                                        handleAddCategory
+                                                                                    }
+                                                                                >
+                                                                                    <i className="fa fa-plus"></i>
+                                                                                    <span className="indicator-label">
+                                                                                        Ajouter
+                                                                                    </span>
+                                                                                </div>
+                                                                            )}
                                                                     </div>
                                                                 </div>
                                                                 <div className="row ">
@@ -1449,24 +1459,24 @@ const AddEventForm = () => {
                                                                                 >
                                                                                     {index >
                                                                                         0 && (
-                                                                                        <Tippy
-                                                                                            className="custom-tooltip"
-                                                                                            content="Suprimer ce champ"
-                                                                                            arrow={
-                                                                                                true
-                                                                                            }
-                                                                                        >
-                                                                                            {/* <FontAwesomeIcon icon={faInfoCircle} /> */}
-                                                                                            <i
-                                                                                                className="fas fa-trash-alt  deleteCategorie-input"
-                                                                                                onClick={() =>
-                                                                                                    handleRemoveCategory(
-                                                                                                        index
-                                                                                                    )
+                                                                                            <Tippy
+                                                                                                className="custom-tooltip"
+                                                                                                content="Suprimer ce champ"
+                                                                                                arrow={
+                                                                                                    true
                                                                                                 }
-                                                                                            ></i>
-                                                                                        </Tippy>
-                                                                                    )}
+                                                                                            >
+                                                                                                {/* <FontAwesomeIcon icon={faInfoCircle} /> */}
+                                                                                                <i
+                                                                                                    className="fas fa-trash-alt  deleteCategorie-input"
+                                                                                                    onClick={() =>
+                                                                                                        handleRemoveCategory(
+                                                                                                            index
+                                                                                                        )
+                                                                                                    }
+                                                                                                ></i>
+                                                                                            </Tippy>
+                                                                                        )}
                                                                                     <div className=" p-9">
                                                                                         <img
                                                                                             alt="Logo"
@@ -1475,72 +1485,72 @@ const AddEventForm = () => {
                                                                                         />
                                                                                         {showPrice >
                                                                                             0 && (
-                                                                                            <>
-                                                                                                <div className="form-group mb-2">
-                                                                                                    <label className="required fs-6 form-label fw-bold text-gray-900">
-                                                                                                        Sélectionner
-                                                                                                        une
-                                                                                                        catégorie
-                                                                                                        de
-                                                                                                        place{" "}
-                                                                                                    </label>
-                                                                                                    <Select
-                                                                                                        name="LG_LSTID"
-                                                                                                        value={
-                                                                                                            showPrice
-                                                                                                                ? categorieData.find(
-                                                                                                                      (
-                                                                                                                          option
-                                                                                                                      ) =>
-                                                                                                                          option.value ===
-                                                                                                                          cat.LG_LSTID
-                                                                                                                  )
-                                                                                                                : categorieData[0]
-                                                                                                        }
-                                                                                                        onChange={(
-                                                                                                            selectedOption
-                                                                                                        ) =>
-                                                                                                            handleCategoryChange(
-                                                                                                                selectedOption,
-                                                                                                                index,
-                                                                                                                "LG_LSTID"
-                                                                                                            )
-                                                                                                        }
-                                                                                                        options={
-                                                                                                            categorieData
-                                                                                                        }
-                                                                                                    />
-                                                                                                </div>
-
-                                                                                                <div className="form-group mb-2">
-                                                                                                    <label className="required fs-6 form-label fw-bold text-gray-900">
-                                                                                                        Prix
-                                                                                                        de
-                                                                                                        la
-                                                                                                        catégorie
-                                                                                                    </label>
-                                                                                                    <div className="input-group mb-3">
-                                                                                                        <input
-                                                                                                            type="text"
-                                                                                                            className="form-control"
-                                                                                                            placeholder="Prix de la catégorie"
+                                                                                                <>
+                                                                                                    <div className="form-group mb-2">
+                                                                                                        <label className="required fs-6 form-label fw-bold text-gray-900">
+                                                                                                            Sélectionner
+                                                                                                            une
+                                                                                                            catégorie
+                                                                                                            de
+                                                                                                            place{" "}
+                                                                                                        </label>
+                                                                                                        <Select
+                                                                                                            name="LG_LSTID"
                                                                                                             value={
-                                                                                                                cat.DBL_ELIAMOUNT
+                                                                                                                showPrice
+                                                                                                                    ? categorieData.find(
+                                                                                                                        (
+                                                                                                                            option
+                                                                                                                        ) =>
+                                                                                                                            option.value ===
+                                                                                                                            cat.LG_LSTID
+                                                                                                                    )
+                                                                                                                    : categorieData[0]
                                                                                                             }
                                                                                                             onChange={(
-                                                                                                                e
+                                                                                                                selectedOption
                                                                                                             ) =>
-                                                                                                                handleCategoryInput(
-                                                                                                                    e,
+                                                                                                                handleCategoryChange(
+                                                                                                                    selectedOption,
                                                                                                                     index,
-                                                                                                                    "DBL_ELIAMOUNT"
+                                                                                                                    "LG_LSTID"
                                                                                                                 )
+                                                                                                            }
+                                                                                                            options={
+                                                                                                                categorieData
                                                                                                             }
                                                                                                         />
                                                                                                     </div>
-                                                                                                </div>
-                                                                                            </>
-                                                                                        )}
+
+                                                                                                    <div className="form-group mb-2">
+                                                                                                        <label className="required fs-6 form-label fw-bold text-gray-900">
+                                                                                                            Prix
+                                                                                                            de
+                                                                                                            la
+                                                                                                            catégorie
+                                                                                                        </label>
+                                                                                                        <div className="input-group mb-3">
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                className="form-control"
+                                                                                                                placeholder="Prix de la catégorie"
+                                                                                                                value={
+                                                                                                                    cat.DBL_ELIAMOUNT
+                                                                                                                }
+                                                                                                                onChange={(
+                                                                                                                    e
+                                                                                                                ) =>
+                                                                                                                    handleCategoryInput(
+                                                                                                                        e,
+                                                                                                                        index,
+                                                                                                                        "DBL_ELIAMOUNT"
+                                                                                                                    )
+                                                                                                                }
+                                                                                                            />
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </>
+                                                                                            )}
 
                                                                                         <div className="row">
                                                                                             <div className="col-12">
@@ -1610,11 +1620,10 @@ const AddEventForm = () => {
                                                             <div className="separator separator-dashed mt-9 mb-6"></div>
                                                             {/* DESTION DE SIEGES */}
                                                             <div
-                                                                className={`notice d-flex ${
-                                                                    showSeat
+                                                                className={`notice d-flex ${showSeat
                                                                         ? "bg-light-primary border-default"
                                                                         : "border-default"
-                                                                } align-items-center rounded border border-dashed  px-5 h-100`}
+                                                                    } align-items-center rounded border border-dashed  px-5 h-100`}
                                                             >
                                                                 <Switch
                                                                     onColor="#86d3ff"
@@ -1646,11 +1655,10 @@ const AddEventForm = () => {
                                                                         <h4 className="text-gray-900 fw-bold m-0">
                                                                             <a
                                                                                 href="#"
-                                                                                className={`fw-bold fs-6 ${
-                                                                                    showSeat
+                                                                                className={`fw-bold fs-6 ${showSeat
                                                                                         ? "text-primary"
                                                                                         : "text-danger"
-                                                                                }`}
+                                                                                    }`}
                                                                             >
                                                                                 {showSeat
                                                                                     ? "Attention, le client ne pourra pas choisir son siège"

@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 //import './AppHeader.css'; // Assuming you have a CSS file for the styles
 
-const AppHeader = ({pageTitle, desctioptionPage}) => {
+const AppHeader = ({ pageTitle, desctioptionPage }) => {
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
-  const urlBaseImage  = localStorage.getItem("urlBaseImage");
   const paths = JSON.parse(localStorage.getItem("appPaths"));
 
 
@@ -72,7 +71,7 @@ const AppHeader = ({pageTitle, desctioptionPage}) => {
             <h1 className="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">
               {pageTitle}
               <span className="page-desc text-muted fs-7 fw-semibold pt-2">
-               {desctioptionPage}
+                {desctioptionPage}
               </span>
             </h1>
           </div>
@@ -91,39 +90,41 @@ const AppHeader = ({pageTitle, desctioptionPage}) => {
                     {userData?.STR_UTIFIRSTLASTNAME}
                   </a>
                   <span className="fs-7 fw-semibold text-gray-600 d-block">
-                  {userData?.STR_UTIMAIL}
+                    {userData?.STR_UTIMAIL}
                   </span>
                 </div>
-                {/* End Username */}
-
-                {/* Menu wrapper */}
                 <div
-                  className="cursor-pointer symbol"
+                  className="cursor-pointer symbol d-flex"
                   data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                   data-kt-menu-attach="parent"
                   data-kt-menu-placement="bottom-end"
                 >
                   <img
                     className="h-40px w-40px w-lg-45px h-lg-45px"
-                    src={userData?.STR_UTIPIC ? urlBaseImage + userData.STR_UTIPIC : 'assets/media/avatars/300-1.jpg'}
+                    src={userData?.STR_UTIPIC ? process.env.REACT_APP_BACKEND_URL + userData.STR_UTIPIC : 'assets/media/avatars/300-1.jpg'}
                     alt="user"
                   />
+
+                  <div
+                    className="d-flex align-items-center"
+                    data-kt-search-element="toggle"
+                    id="kt_header_search_toggle"
+                  >
+                    <div className="btn btn-icon btn-circle btn-color-primary btn-active-color-primary btn-custom shadow-sm bg-body">
+                      <i className="ki-duotone ki-magnifier fs-1">
+                        <span className="path1" />
+                        <span className="path2" />
+                      </i>{" "}
+                    </div>
+                  </div>
+
                 </div>
-                {/* User account menu */}
-                <div
-                  className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
-                  data-kt-menu="true"
-                >
-                  {/* Menu item */}
+                <div className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
                   <div className="menu-item px-3">
                     <div className="menu-content d-flex align-items-center px-3">
-                      {/* Avatar */}
                       <div className="symbol symbol-50px me-5">
-                        <img alt="Logo"   src={userData?.STR_UTIPIC ? urlBaseImage + userData.STR_UTIPIC : 'assets/media/avatars/300-1.jpg'}  />
+                        <img alt="Logo" src={userData?.STR_UTIPIC ? process.env.REACT_APP_BACKEND_URL + userData.STR_UTIPIC : 'assets/media/avatars/300-1.jpg'} />
                       </div>
-                      {/* End Avatar */}
-
-                      {/* Username */}
                       <div className="d-flex flex-column">
                         <div className="fw-bold d-flex align-items-center fs-5">
                           Max Smith
@@ -290,19 +291,12 @@ const AppHeader = ({pageTitle, desctioptionPage}) => {
                       Sign Out
                     </a>
                   </div>
-                  {/* End Menu item */}
                 </div>
-                {/* End User account menu */}
               </div>
-              {/* End User menu */}
             </div>
-            {/* End Navbar */}
           </div>
-          {/* End Wrapper */}
         </div>
-        {/* End Header wrapper */}
       </div>
-      {/* End Header container */}
     </div>
   );
 };
